@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<title>Flaskr</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap.min.css') }}">
+<div class=page>
+  <h1>Flask web App project</h1>
+  <div class=metanav>
+ 
+    <a href="{{ url_for('login') }}">log in</a>
+    <a href="{{ url_for('signup') }}">Sign Up</a>
+    <a href="{{ url_for('home') }}">Home</a>
+  
+  </div>  
+  {% block body %}{% endblock %}
+</div>
+</html>
