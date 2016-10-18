@@ -1,6 +1,25 @@
+<!-- This is main page of the application where user can see existing contacts and add, remove or edit them -->
+
 {% extends "index.html" %}
 {% block body %}
   <h2>Home Page</h2>
-<p>Here is some text</p>
-  
+<p>Here the contacts will be shown. User will also be able to manipulate the list of names. Add, remove or edit entries as they want.</p>
+<div class="form-group" display="inline-block">
+   
+    <form>
+        <div class="col-xs-4">
+            <label class="label label-primary" for="names">Full Name</label>
+            <textarea class="form-control" id="names" name="names" placeholder="Test place for names from database" rows="5" readonly></textarea>
+        </div>
+        <div class="col-xs-4">
+            <label class="label label-primary" for="phones">Phone number</label>
+            <textarea class="form-control" id="phones" name="phones" placeholder="Test place for phones from database" rows="5" readonly></textarea>
+        </div>
+        <div class="col-xs-4">
+            <label class="label label-primary" for="emails">E-Mail address</label>
+            <textarea class="form-control" id="emails" name="emails" placeholder="Test place for e-mails from database" rows="5" readonly></textarea>
+        </div>
+    </form>
+        
+</div>
 {% endblock %}
