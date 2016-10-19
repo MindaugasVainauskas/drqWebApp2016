@@ -11,8 +11,10 @@
     <a href="{{ url_for('signup') }}">Sign Up</a>
     <a href="{{ url_for('home') }}">Home</a>  
   </div>  
-  {% block body %}{% endblock %}
+  {% block body %}
+     <script src="js/bootstrap.min.js"></script>
+    {% endblock %}
     
-    <script src="js/bootstrap.min.js"></script>
+   
 </div>
 </html>
