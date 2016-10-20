@@ -3,14 +3,18 @@
 <!-- Originally adapted from: http://getbootstrap.com/getting-started/ -->
     <title>WebApp</title>    
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-<div class=page>
-    <div class="page-header"><h1>Flask web App project</h1></div>  
+
+     <nav class="navbar navbar-inverse"><h2>Flask web App project</h2>
+       <div class="navbar-brand pull-right"> 
+        <a href="{{ url_for('login') }}">Log in</a>
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+        <a href="{{ url_for('home') }}">Home</a>  
+      </div> 
+    </nav>  
     
-  <div class="navbar"> 
-    <a href="{{ url_for('login') }}">log in</a>
-    <a href="{{ url_for('signup') }}">Sign Up</a>
-    <a href="{{ url_for('home') }}">Home</a>  
-  </div>  
+<div class=page>
+   
+   
   {% block body %}
      <script src="js/bootstrap.min.js"></script>
     {% endblock %}

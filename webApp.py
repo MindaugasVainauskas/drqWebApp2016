@@ -45,7 +45,7 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
         
-@app.cli.command('initdb')
+@app.cli.command('initdb')#overriding flask cli to include initdb command
 def initdb_command():    
     init_db()    
 
@@ -64,5 +64,5 @@ def home():
 
 
 if __name__ == "__main__":
-
+    #init_db()
     app.run()
