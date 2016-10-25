@@ -1,6 +1,6 @@
 ## Single page web application project
-### Data representation and querrying module
 #### Author: Mindaugas Vainauskas
+#### Data representation and querrying module
 #### 3rd Year Software Development Course
 #### GMIT 2016
 
