@@ -3,22 +3,21 @@
 {% extends "index.html" %}
 {% block body %}
   <h2>SignUp Page</h2>
-<div class="panel panel-primary col-xs-6 col-md-offset-3" align="center">
+<div class="panel panel-primary col-md-6 col-md-offset-3" align="center">
     <div class="panel-heading"><h4>Please register to start making your own contact list</h4></div>
     <div class="panel-body">
-        <form class="form-group ">
+        <form class="form-group " action="{{url_for('signup')}}" method="POST">
             <label for="inputName" class="sr-only">Name</label>
             <input type="text" class="form-control" id="inputName" placeholder="Name" required autofocus>
             <label for="inputSurname" class="sr-only">Surname</label>
             <input type="text" class="form-control" id="inputSurname" placeholder="Surname" required>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="text" class="form-control" id="inputPassword" placeholder="Create Password" required>
+            <input type="Password" class="form-control" id="inputPassword" placeholder="Create Password" required>
             <label for="inputPassConf" class="sr-only">Confirm Password</label>
-            <input type="text" class="form-control" id="inputPassConf" placeholder="Reenter Password" required>
+            <input type="Password" class="form-control" id="inputPassConf" placeholder="Reenter Password" required>
             
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            <button class="btn btn-lg btn-primary btn-block" id="submitButton" type="submit">Register</button>
         </form>
    </div>
 </div>
-  
 {% endblock %}

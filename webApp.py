@@ -2,8 +2,10 @@
 import os
 import sqlite3
 import flask as fl
-from flask import render_template, url_for, redirect, g
+from flask import render_template, url_for, redirect, g, request
 from contextlib import closing
+
+import appMethods
 
 
 app = fl.Flask(__name__)
@@ -12,7 +14,7 @@ DATABASE = 'app_db/appDB.db'
 
 #Connect to the DB
 def connect_db():#Get the connection to DB sorted out
-    rw = fl.g._database = sqlite3.connect('DATABASE')    
+    rw = fl.g._database = sqlite3.connect(DATABASE)    
     return rw
 
 #Initiate call to DB
@@ -36,12 +38,28 @@ def close_db(exception):
 def login():
     return  render_template('login.html')
 
-@app.route("/signup")#Page to register new users
+@app.route("/signup", methods=['POST', 'GET'])#Page to register new users
 def signup():
-    return  render_template('signUp.html')
+    if request.method == "POST":
+        _name = request.args.get('inputName')
+        _surname = request.args.get('inputSurname')
+        _password = request.args.get('inputPassword')
+        createuser(_name, _surname, _password)
+        return render_template('home.html')
+    else:
+        return  render_template('signUp.html')
+
+
+#this method will insert new users into user_table in the database
+def createuser(name, surname, password):
+    db = connect_db()
+    cur = db.cursor()    
+    cur.execute('INSERT INTO user_table(name, surname, password) VALUES (?, ?, ?)', (name, surname, password))
+    db.commit()    
+    db.close()
 
 @app.route("/home")#Page that users see if they have signed in or registered
-def home():
+def home():    
     return  render_template('home.html')
 
 

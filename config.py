@@ -12,12 +12,51 @@ def setup_db():
 	cur = db.cursor()
 
 	#if the database does not exist get it created
-	cur.execute("CREATE TABLE IF NOT EXISTS user_table(id integer primary key autoincrement, name varchar(20) not null,	surname varchar(20) null, password varchar(20) null, email varchar(20) null)")
+	cur.execute("CREATE TABLE IF NOT EXISTS user_table(id integer primary key autoincrement, name varchar(20),	surname varchar(20), password varchar(192))")
 	db.commit()
 
+	#insert some dummy user data for testing purposes when DB is created.
+	cur.execute("SELECT COUNT(*) FROM user_table")
+	if cur.fetchall()[0][0] == 0:
+		cur.execute('INSERT INTO user_table(name, surname, password) VALUES("admin", "adminas", "Admin1")')		
+		db.commit()		
 
 if __name__ == "__main__":
 	setup_db()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
