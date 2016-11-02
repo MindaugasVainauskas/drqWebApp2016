@@ -6,15 +6,13 @@
 <div class="panel panel-primary col-md-6 col-md-offset-3" align="center">
     <div class="panel-heading"><h4>Please register to start making your own contact list</h4></div>
     <div class="panel-body">
-        <form class="form-group " action="{{url_for('signup')}}" method="POST">
-            <label for="inputUserName" class="sr-only">Name</label>
-            <input type="text" class="form-control" id="inputUserName" placeholder="Create username" required autofocus>
+        <form class="form-group " method="POST" action="{{url_for('signup')}}">
+            <label for="inputUsername" class="sr-only">Name</label>
+            <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Create username" required autofocus>
             <label for="inputEmail" class="sr-only">E-mail</label>
-            <input type="text" class="form-control" id="inputEmail" placeholder="E-mail address" required>
+            <input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail address" required>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="Password" class="form-control" id="inputPassword" placeholder="Create Password" required>
-            <label for="inputPassConf" class="sr-only">Confirm Password</label>
-            <input type="Password" class="form-control" id="inputPassConf" placeholder="Reenter Password" required>
+            <input type="Password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Create Password" required>
             
             <button class="btn btn-lg btn-primary btn-block" id="submitButton" type="submit">Register</button>
         </form>
