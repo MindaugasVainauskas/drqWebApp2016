@@ -10,17 +10,13 @@
 <!--adapted from http://getbootstrap.com/getting-started/#examples-->
    <div class="container col-md-offset-4 col-xs-4">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
+      <form class="form-group" method="POST" action="{{url_for('login')}}">
+        <h2 class="form-signin-heading" >Please sign in</h2>
         <label for="inputName" class="sr-only">Name</label>
-        <input type="name" id="inputName" class="form-control" placeholder="Name" required autofocus>
+        <input type="name" id="inputName" name="inputName" class="form-control" placeholder="Name" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <div>
         	<a href="{{ url_for('signup') }}">Dont have account yet?</a>

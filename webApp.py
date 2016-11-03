@@ -1,15 +1,17 @@
 # Import necessary libraries and a database for application to work
 
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session
 from flask_pymongo import PyMongo
-from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
+from flask_scrypt import generate_random_salt, generate_password_hash
 
 
 app = Flask(__name__)
 
-
+# get the database config files done
 app.config['MONGO_DBNAME'] = 'usersDB'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/usersDB'
+
+app.secret_key = 'mv_secret_key'  # need to have secret key to use session
 
 
 mongo = PyMongo(app)
@@ -17,7 +19,26 @@ mongo = PyMongo(app)
 
 # Routing functions
 @app.route("/")  # Initial page that user sees when web app loads
+def root():
+    # simply redirect users to login page as that is what they will need to see
+    return redirect(url_for('login'))
+
+
+@app.route("/login", methods=['POST', 'GET'])
 def login():
+    if request.method == 'POST':
+        # find the user in database by username entered
+        returning_user = mongo.db.usersDB.find_one({'username': request.form['inputName']})
+        if returning_user is not None:
+            saltUsed = returning_user['salt'] # get the salt used for password for this user
+            passCheck = returning_user['password'] # get the password hash from database to compare passwords
+            # next need to check that password entered corresponds to password that exists in the database for this user
+            if generate_password_hash(request.form['inputPassword'], saltUsed) == passCheck:
+                session['currentUser'] = returning_user['username']
+                return redirect(url_for('home'))
+            return 'Wrong Password entered!!'  # if username matches but passwords doesnt this message is displayed
+        return 'Wrong Username entered'  # if usernames don't match this message is displayed
+
     return render_template('login.html')
 
 
@@ -33,13 +54,14 @@ def signup():
             username = request.form['inputUsername']  # take in the username from form input
             email = request.form['inputEmail']  # take in the email from form selection
             password = request.form['inputPassword']  # take in the password from form selection
-            pass_hash = generate_password_hash(password, salt)  # generate password hash that will get stored in the DB
+            pass_hash = generate_password_hash(password.encode('Utf-8'), salt)  # generate password hash that will get stored in the DB
             # create user account
             createuser(username, email, pass_hash, salt)
+            session['currentUser'] = request.form['inputUsername']
             return redirect(url_for('home'))
-        return 'User with such name exists!!!'
+        return 'User with such name exists!!!'  # if username is found in database the message is shown
     else:
-        return render_template('signUp.html')
+        return render_template('signUp.html')  # if no form details present then normal signup page is shown
 
 
 # this method will insert new users into the collection in the database
@@ -53,10 +75,17 @@ def createuser(username, email, password, salt):
     })
 
 
-@app.route('/home')  # Page that users see if they have signed in or registered
+@app.route('/home', methods=['GET', 'POST'])  # Page that users see if they have signed in or registered
 def home():
-    # user = mongo.db.users.find_one({'username': username})
-    return render_template('home.html')
+    if 'currentUser' in session:
+        return render_template('home.html', user=session['currentUser'])
+    return render_template('login.html')
+
+# get the logout page working
+@app.route('/logout')
+def logout():
+    session.pop('currentUser', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
