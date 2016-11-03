@@ -71,6 +71,7 @@ def createuser(username, email, password, salt):
         'username': username  # insert username into document
         , 'email': email  # insert email
         , 'password': password  # insert password hash
+        , 'contacts': []  # array of objects for later to store contacts
         , 'salt': salt  # insert salt that was used to generate password hash. To be used with login later
     })
 
@@ -78,8 +79,30 @@ def createuser(username, email, password, salt):
 @app.route('/home', methods=['GET', 'POST'])  # Page that users see if they have signed in or registered
 def home():
     if 'currentUser' in session:
+        # curr_user = session['currentUser']
         return render_template('home.html', user=session['currentUser'])
     return render_template('login.html')
+
+
+# Add the new contact into the list of contacts of the user.
+@app.route("/contact", methods=['POST', 'GET'])
+def contact():
+    if request.method == 'POST':
+        cName = request.form['inputName']
+        cSname = request.form['inputSurname']
+        cPhone = request.form['inputPhone']
+        cEmail = request.form['inputEmail']
+        createContact(cName, cSname, cPhone, cEmail)
+    return render_template('contact.html')
+
+
+def createContact(cName, cSname, cPhone, cEmail):
+    curr_user = session['currentUser']
+    mongo.db.usersDB.update({'username': curr_user}, {'$push': {
+        'contacts': {'name': cName, 'surname': cSname, 'phone': cPhone, 'email': cEmail}
+    }
+    })
+
 
 # get the logout page working
 @app.route('/logout')
