@@ -1,6 +1,6 @@
 # Import necessary libraries and a database for application to work
 
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, json
 from flask_pymongo import PyMongo
 from flask_scrypt import generate_random_salt, generate_password_hash
 
@@ -79,8 +79,9 @@ def createuser(username, email, password, salt):
 @app.route('/home', methods=['GET', 'POST'])  # Page that users see if they have signed in or registered
 def home():
     if 'currentUser' in session:
-        # curr_user = session['currentUser']
-        return render_template('home.html', user=session['currentUser'])
+        curr_user = session['currentUser']
+        names = mongo.db.usersDB.find_one({'username': curr_user})
+        return render_template('home.html', user=session['currentUser'], name=names)
     return render_template('login.html')
 
 
@@ -92,16 +93,32 @@ def contact():
         cSname = request.form['inputSurname']
         cPhone = request.form['inputPhone']
         cEmail = request.form['inputEmail']
-        createContact(cName, cSname, cPhone, cEmail)
+        createcontact(cName, cSname, cPhone, cEmail)
     return render_template('contact.html')
 
 
-def createContact(cName, cSname, cPhone, cEmail):
+@app.route("/retrieve", methods=['GET'])
+def getcontacts():
+    curr_user = session['currentUser']
+    cursor = mongo.db.usersDB
+    coNames = cursor.find_one({'username': curr_user})
+    # get rid of parts of an object that are not json serialisable or unnecessary. like id, password and salt used.
+    coNames.pop("_id")
+    coNames.pop("password")
+    coNames.pop("salt")
+    return json.dumps(coNames)
+
+
+# The following method creates contact based on given contact details.
+def createcontact(cName, cSname, cPhone, cEmail):
     curr_user = session['currentUser']
     mongo.db.usersDB.update({'username': curr_user}, {'$push': {
         'contacts': {'name': cName, 'surname': cSname, 'phone': cPhone, 'email': cEmail}
     }
     })
+
+
+
 
 
 # get the logout page working

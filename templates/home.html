@@ -1,25 +1,73 @@
 <!-- This is main page of the application where user can see existing contacts and add, remove or edit them -->
 
 {% extends "index.html" %}
+
 {% block body %}
   <h2>Welcome {{user}}</h2>
-<p>Here the contacts will be shown. User will also be able to manipulate the list of names. Add, remove or edit entries as they want.</p>
-<div class="form-group" display="inline-block">
-   
+    <p><h4>Contact full names, phone numbers and e-mail addresses are displayed together with corresponding contact number
+    in the list.</h4></p>
+{#<div class="form-group" display="inline-block">
     <form>
         <div class="col-xs-4">
-            <label class="label label-primary" for="names">Full Name</label>
-            <textarea class="form-control" id="names" name="names" placeholder="Test place for names from database" rows="10" readonly></textarea>
+            <label class="label label-primary" for="names">Full Name list</label>
+            <textarea class="form-control" id="names" name="names" placeholder="Test place for names from database"
+                      rows="10" readonly></textarea>
         </div>
         <div class="col-xs-4">
-            <label class="label label-primary" for="phones">Phone number</label>
-            <textarea class="form-control" id="phones" name="phones" placeholder="Test place for phones from database" rows="10" readonly></textarea>
+            <label class="label label-primary" for="phones">Phone number list</label>
+            <textarea class="form-control" id="phones" name="phones" placeholder="Test place for phones from database"
+                      rows="10" readonly></textarea>
         </div>
         <div class="col-xs-4">
-            <label class="label label-primary" for="emails">E-Mail address</label>
-            <textarea class="form-control" id="emails" name="emails" placeholder="Test place for e-mails from database" rows="10" readonly></textarea>
+            <label class="label label-primary" for="emails">E-Mail address list</label>
+            <textarea class="form-control" id="emails" name="emails" placeholder="Test place for e-mails from database"
+                      rows="10" readonly></textarea>
         </div>
     </form>
-        
+</div>#}
+   <!-- Use table to display the contacts -->
+    <div class="panel panel-primary">
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <th>List No.</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>E-mail Address</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="number"></td>
+                    <td id="name"></td>
+                    <td id="phone"></td>
+                    <td id="email"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+        
+
+
+    <!-- Javascript for jQuery and processing response from server to web application-->
+    <!-- following link omits http beginning deliberately to allow browser to decide by itself whether to use http or https -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    //retrieve cutdown json object from the database
+    $(document).ready(function(){
+         $.get("/retrieve", function(response){
+        var user = JSON.parse(response); // user is the current user using the application
+             //print out the details of the contacts in a table adding necessary tags for rows and data along the way
+             $.each(user.contacts, function(i){
+                 $("#number").append("<tr><td>").append(i+1).append("</td>");
+                 $("#name").append("<td>").append(user.contacts[i].name).append(" ").append(user.contacts[i].surname).append("</td>");
+                 $("#phone").append("<td>").append(user.contacts[i].phone).append("</td>");
+                 $("#email").append("<td>").append(user.contacts[i].email).append("</td></tr>");
+             })
+        })
+    })
+    </script>
+
 {% endblock %}
+
