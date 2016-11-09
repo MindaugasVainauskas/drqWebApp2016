@@ -3,28 +3,9 @@
 {% extends "index.html" %}
 
 {% block body %}
-  <h2>Welcome {{user}}</h2>
+  <h2>Welcome, {{user}}</h2>
     <p><h4>Contact full names, phone numbers and e-mail addresses are displayed together with corresponding contact number
     in the list.</h4></p>
-{#<div class="form-group" display="inline-block">
-    <form>
-        <div class="col-xs-4">
-            <label class="label label-primary" for="names">Full Name list</label>
-            <textarea class="form-control" id="names" name="names" placeholder="Test place for names from database"
-                      rows="10" readonly></textarea>
-        </div>
-        <div class="col-xs-4">
-            <label class="label label-primary" for="phones">Phone number list</label>
-            <textarea class="form-control" id="phones" name="phones" placeholder="Test place for phones from database"
-                      rows="10" readonly></textarea>
-        </div>
-        <div class="col-xs-4">
-            <label class="label label-primary" for="emails">E-Mail address list</label>
-            <textarea class="form-control" id="emails" name="emails" placeholder="Test place for e-mails from database"
-                      rows="10" readonly></textarea>
-        </div>
-    </form>
-</div>#}
    <!-- Use table to display the contacts -->
     <div class="panel panel-primary">
     <div class="panel-body">
