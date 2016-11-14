@@ -1,34 +1,30 @@
 <!-- This is main page of the application where user can see existing contacts and add, remove or edit them -->
 
 {% extends "index.html" %}
-
 {% block body %}
   <h2>Welcome, {{user}}</h2>
     <p><h4>Contact full names, phone numbers and e-mail addresses are displayed together with corresponding contact number
     in the list.</h4></p>
    <!-- Use table to display the contacts -->
-    <div class="panel panel-primary">
-    <div class="panel-body">
-        <table class="table table-bordered">
+
+        <table class="table table-bordered" >
             <thead>
                 <th>List No.</th>
                 <th>Full Name</th>
                 <th>Phone Number</th>
                 <th>E-mail Address</th>
+                <th>Delete</th>
             </thead>
-            <tbody>
+            <tbody >
                 <tr>
-                    <td id="number"></td>
-                    <td id="name"></td>
-                    <td id="phone"></td>
-                    <td id="email"></td>
+                    <th id="number" name="number"></th>
+                    <td id="name" name="name"></td>
+                    <td id="phone" name="phone"></td>
+                    <td id="email" name="email"></td>
+                    <td id="delete"></td>
                 </tr>
             </tbody>
         </table>
-    </div>
-</div>
-        
-
 
     <!-- Javascript for jQuery and processing response from server to web application-->
     <!-- following link omits http beginning deliberately to allow browser to decide by itself whether to use http or https -->
@@ -40,14 +36,46 @@
          $.get("/retrieve", function(response){
         var user = JSON.parse(response); // user is the current user using the application
              //print out the details of the contacts in a table adding necessary tags for rows and data along the way
-             $.each(user.contacts, function(i){
-                 $("#number").append("<tr><td>").append(i+1).append("</td>");
-                 $("#name").append("<td>").append(user.contacts[i].name).append(" ").append(user.contacts[i].surname).append("</td>");
-                 $("#phone").append("<td>").append(user.contacts[i].phone).append("</td>");
-                 $("#email").append("<td>").append(user.contacts[i].email).append("</td></tr>");
+             {#$.each(user.contacts, function(i){
+                 $('#number').append("<tr><th>"+(i+1)+"</th>");
+                 $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
+                 $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
+                 $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
+                 $('#delete').append("<td>").append("<button class='btn btn-small btn-primary' type='submit'>Delete</button>").append("</td></tr>");
+                 console.log(number, name)
+             })#}
+
+             //both .each and for loop works same way.
+             var i;
+             for(i=0; i<$(user.contacts).length; i++){
+                 $('#number').append("<tr><th>"+(i+1)+"</th>");
+                 $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
+                 $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
+                 $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
+                 $('#delete').append("<td>").append("<button class='btn btn-small btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
+                 console.log(i);
+             }
+
+             //get the event that button was pressed.
+             $("button").click(function(){
+                 var btn = $(this).attr('name');
+                 var cName = user.contacts[btn].name;
+                 var cSurname = user.contacts[btn].surname;
+                 var cPhone = user.contacts[btn].phone;
+                 var cEmail = user.contacts[btn].email;
+                 var contact = cName+" "+ cSurname+" "+cPhone+" "+cEmail;
+                 alert(contact);
+                 $.post(
+                         "/del_contact",
+                         {contactEmail: cEmail}
+                 ).done(function(){
+                         alert("Done");
+                })
              })
         })
+
     })
+
     </script>
 
 {% endblock %}

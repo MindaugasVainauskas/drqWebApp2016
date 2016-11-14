@@ -81,7 +81,7 @@ def home():
     if 'currentUser' in session:
         curr_user = session['currentUser']
         names = mongo.db.usersDB.find_one({'username': curr_user})
-        return render_template('home.html', user=session['currentUser'], name=names)
+        return render_template('home.html', user=session['currentUser'])
     return render_template('login.html')
 
 
@@ -94,7 +94,7 @@ def contact():
         cPhone = request.form['inputPhone']
         cEmail = request.form['inputEmail']
         createcontact(cName, cSname, cPhone, cEmail)
-    return render_template('contact.html')
+    return render_template('contact.html', user=session['currentUser'])
 
 
 @app.route("/retrieve", methods=['GET'])
@@ -112,12 +112,32 @@ def getcontacts():
 # The following method creates contact based on given contact details.
 def createcontact(cName, cSname, cPhone, cEmail):
     curr_user = session['currentUser']
+
     mongo.db.usersDB.update({'username': curr_user}, {'$push': {
         'contacts': {'name': cName, 'surname': cSname, 'phone': cPhone, 'email': cEmail}
     }
     })
 
 
+@app.route('/del_contact', methods=['POST', 'GET'])
+def del_contact():
+    if request.method == 'POST':
+        contactEmail = request.form.get('cEmail')
+        delete_contact(contactEmail)
+        return redirect(url_for('home'))
+
+
+# The following method deletes contact.
+def delete_contact(contactEmail):
+ curr_user = session['currentUser']
+
+ mongo.db.usersDB.update({'username': curr_user}, {'$pull': {
+     'curr_user.contacts': {'email': contactEmail}
+ }
+ })
+
+
+# The following method route removes user document from database effectively deleting user account from web-app.
 @app.route('/delete_user')
 def delete_user():
     existing_user = session['currentUser']
