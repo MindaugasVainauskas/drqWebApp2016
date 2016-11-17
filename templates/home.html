@@ -41,7 +41,7 @@
                  $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
                  $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
                  $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
-                 $('#delete').append("<td>").append("<button class='btn btn-small btn-primary' type='submit'>Delete</button>").append("</td></tr>");
+                 $('#delete').append("<td>").append(""<button class='btn btn-xs btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
                  console.log(number, name)
              })#}
 
@@ -52,7 +52,7 @@
                  $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
                  $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
                  $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
-                 $('#delete').append("<td>").append("<button class='btn btn-small btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
+                 $('#delete').append("<td>").append("<button class='btn btn-xs btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
                  console.log(i);
              }
 
@@ -64,17 +64,21 @@
                  var cPhone = user.contacts[btn].phone;
                  var cEmail = user.contacts[btn].email;
                  var contact = cName+" "+ cSurname+" "+cPhone+" "+cEmail;
-                 alert(contact);
+
+                 //send details of contact to be deleted
                  $.post(
-                         "/del_contact",
-                         {contactEmail: cEmail}
-                 ).done(function(){
-                         alert("Done");
-                })
+                         '/del_contact',
+                         {cEmail: cEmail, cPhone: cPhone}
+
+                 )
+
              })
         })
-
     })
+
+            $(document).on("click", ".delegate_update_success", function(){
+                window.location.reload(true);
+            });
 
     </script>
 

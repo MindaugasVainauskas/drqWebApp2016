@@ -122,19 +122,20 @@ def createcontact(cName, cSname, cPhone, cEmail):
 @app.route('/del_contact', methods=['POST', 'GET'])
 def del_contact():
     if request.method == 'POST':
-        contactEmail = request.form.get('cEmail')
-        delete_contact(contactEmail)
-        return redirect(url_for('home'))
+        cEmail = request.values['cEmail']
+        cPhone = request.values['cPhone']
+        delete_contact(cEmail, cPhone)
+        #return render_template('home.html')
+        return cEmail+" "+cPhone
 
 
 # The following method deletes contact.
-def delete_contact(contactEmail):
- curr_user = session['currentUser']
-
- mongo.db.usersDB.update({'username': curr_user}, {'$pull': {
-     'curr_user.contacts': {'email': contactEmail}
- }
- })
+def delete_contact(cEmail, cPhone):
+    curr_user = session['currentUser']
+    cursor = mongo.db.usersDB
+    cursor.update({'username': curr_user},
+                  {'$pull': {'contacts': {'email': cEmail, 'phone': cPhone}}})
+    print('DELVALUES: --', cEmail, ' --', cPhone, '--', curr_user, '--')
 
 
 # The following method route removes user document from database effectively deleting user account from web-app.
