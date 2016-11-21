@@ -1,9 +1,10 @@
-<!-- Sign up page for new users who wish to create a contact book -->
+<!-- Sign up page for new users who wish to create a contact list -->
 
 {% extends "index.html" %}
 {% block body %}
-  <h3>I see you want to add a contact or two. {{ user }}, please enter their details into form below</h3>
-<div class="panel panel-primary col-md-6 col-md-offset-3" align="center">
+  <h3>Want to add a contact or two, {{ user }}? Enter contact details into form below or click home button to go back to main page.</h3>
+<!-- Following panel holds form for adding new contact to the list. It's width is 6 small columns with offset of 3 -->
+<div class="panel panel-primary col-sm-6 col-sm-offset-3" align="center">
     <div class="panel-heading"><h3>Enter contact details for new entry to the contact list</h3></div>
     <div class="panel-body">
         <form class="form-horizontal " method="POST" action="{{url_for('contact')}}">

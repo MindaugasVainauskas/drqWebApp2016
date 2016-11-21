@@ -5,9 +5,10 @@
   <h2>Welcome, {{user}}</h2>
     <p><h4>Contact full names, phone numbers and e-mail addresses are displayed together with corresponding contact number
     in the list.</h4></p>
-   <!-- Use table to display the contacts -->
+   <!-- Table to display the contacts details and a delete button for each contact -->
 
         <table class="table table-bordered" >
+        <!-- Headers for data columns -->
             <thead>
                 <th>List No.</th>
                 <th>Full Name</th>
@@ -16,6 +17,7 @@
                 <th>Delete</th>
             </thead>
             <tbody >
+            <!-- Rows that hold the data with contact details -->
                 <tr>
                     <th id="number" name="number"></th>
                     <td id="name" name="name"></td>
@@ -36,50 +38,35 @@
          $.get("/retrieve", function(response){
         var user = JSON.parse(response); // user is the current user using the application
              //print out the details of the contacts in a table adding necessary tags for rows and data along the way
-             {#$.each(user.contacts, function(i){
-                 $('#number').append("<tr><th>"+(i+1)+"</th>");
-                 $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
-                 $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
-                 $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
-                 $('#delete').append("<td>").append(""<button class='btn btn-xs btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
-                 console.log(number, name)
-             })#}
-
-             //both .each and for loop works same way.
-             var i;
-             for(i=0; i<$(user.contacts).length; i++){
+            $.each(user.contacts, function(i){
                  $('#number').append("<tr><th>"+(i+1)+"</th>");
                  $('#name').append("<td>").append(user.contacts[i].name+" "+user.contacts[i].surname).append("</td>");
                  $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
                  $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
                  $('#delete').append("<td>").append("<button class='btn btn-xs btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
-                 console.log(i);
-             }
+                 console.log(number, name)
+             });
 
              //get the event that button was pressed.
              $("button").click(function(){
-                 var btn = $(this).attr('name');
+                 var btn = $(this).attr('name');//button gets assigned the row id of the row its on
+                 //next contact details are taken from table to be used in locating it on database for deletion purpose.
                  var cName = user.contacts[btn].name;
                  var cSurname = user.contacts[btn].surname;
                  var cPhone = user.contacts[btn].phone;
                  var cEmail = user.contacts[btn].email;
-                 var contact = cName+" "+ cSurname+" "+cPhone+" "+cEmail;
 
-                 //send details of contact to be deleted
+                 //send details of contact to be deleted into the flask server.
                  $.post(
-                         '/del_contact',
-                         {cEmail: cEmail, cPhone: cPhone}
+                     '/del_contact',
+                     {cName: cName, cSurname: cSurname, cEmail: cEmail, cPhone: cPhone}
 
                  )
-
+                 //following code reloads the table once delete button is pressed on one of contacts.
+                location.reload(true);
              })
         })
     })
-
-            $(document).on("click", ".delegate_update_success", function(){
-                window.location.reload(true);
-            });
-
     </script>
 
 {% endblock %}

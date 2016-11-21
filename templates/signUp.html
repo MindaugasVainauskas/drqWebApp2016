@@ -1,4 +1,4 @@
-<!-- Sign up page for new users who wish to create a contact book -->
+<!-- Sign up page for new users who wish to create a contact list -->
 
 {% extends "index.html" %}
 {% block body %}
@@ -6,14 +6,16 @@
 <div class="panel panel-primary col-md-6 col-md-offset-3" align="center">
     <div class="panel-heading"><h4>Please register to start making your own contact list</h4></div>
     <div class="panel-body">
+        <!-- Form to enter user details like username, email and password. -->
         <form class="form-group " method="POST" action="{{url_for('signup')}}">
+            <!-- Usernames are enforced to be unique on the server side that checks if username exists in DB already -->
             <label for="inputUsername" class="sr-only">Name</label>
             <input type="text" class="form-control" id="inputUsername" name="inputUsername" placeholder="Create username" required autofocus>
             <label for="inputEmail" class="sr-only">E-mail</label>
             <input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail address" required>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="Password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Create Password" required>
-            
+            <!-- Once user enters their details new document gets created in DB with these details -->
             <button class="btn btn-lg btn-primary btn-block" id="submitButton" type="submit">Register</button>
         </form>
    </div>

@@ -7,11 +7,13 @@
     <div class="header">
       <nav class="navbar navbar-inverse">      
         <div class="navbar-brand pull-right">
-        <!-- get the navbars sorted. used flask docs to find info on how to do this -->
+        <!-- Navbars that users see and can use. used flask docs to find info on how to do this -->
+        <!-- if user is not logged in yet they see only the following 2 links for login and signup -->
             {% if not session['currentUser'] %}
                   <a href="{{ url_for('login') }}">Log in |</a>
                   <a href="{{ url_for('signup') }}">Sign Up</a>
             {% endif %}
+        <!-- if user is logged in then links change to following 4. -->
             {% if session['currentUser'] %}
                 <a href="{{ url_for('contact') }}">Add contact |</a>
                 <a href="{{ url_for('home') }}">Home |</a>
@@ -19,7 +21,7 @@
                 <a href="{{ url_for('delete_user') }}">Delete User Account</a>
             {% endif %}
         </div>
-        <h3 class="text-muted">The Contact List</h3>
+        <h3 class="text-info">The Contact List</h3>
       </nav>
 
     </div>
