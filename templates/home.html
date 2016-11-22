@@ -6,7 +6,6 @@
     <p><h4>Contact full names, phone numbers and e-mail addresses are displayed together with corresponding contact number
     in the list.</h4></p>
    <!-- Table to display the contacts details and a delete button for each contact -->
-
         <table class="table table-bordered" >
         <!-- Headers for data columns -->
             <thead>
@@ -29,11 +28,10 @@
         </table>
 
     <!-- Javascript for jQuery and processing response from server to web application-->
-    <!-- following link omits http beginning deliberately to allow browser to decide by itself whether to use http or https -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
 
-    //retrieve cutdown json object from the database
+    //retrieve cut-down json object containing contact details from the database
     $(document).ready(function(){
          $.get("/retrieve", function(response){
         var user = JSON.parse(response); // user is the current user using the application
@@ -44,27 +42,33 @@
                  $('#phone').append("<td>").append(user.contacts[i].phone).append("</td>");
                  $('#email').append("<td>").append(user.contacts[i].email).append("</td>");
                  $('#delete').append("<td>").append("<button class='btn btn-xs btn-primary' type='submit' action='/del_contact' name='"+i+"'"+">Delete</button>").append("</td></tr>");
-                 console.log(number, name)
              });
 
              //get the event that button was pressed.
              $("button").click(function(){
                  var btn = $(this).attr('name');//button gets assigned the row id of the row its on
-                 //next contact details are taken from table to be used in locating it on database for deletion purpose.
+                 //next, contact details are taken from table to be used in locating it on database for deletion purpose.
                  var cName = user.contacts[btn].name;
                  var cSurname = user.contacts[btn].surname;
                  var cPhone = user.contacts[btn].phone;
                  var cEmail = user.contacts[btn].email;
 
-                 //send details of contact to be deleted into the flask server.
-                 $.post(
-                     '/del_contact',
-                     {cName: cName, cSurname: cSurname, cEmail: cEmail, cPhone: cPhone}
+                 //get the user to confirm their choice to delete a contact(in case of accidental delete button click)
+                 var choice = confirm("Contact "+cName+" "+cSurname +" is about to be deleted")
 
-                 )
-                 //following code reloads the table once delete button is pressed on one of contacts.
-                location.reload(true);
+                 //if choice comes back as tru(OK clicked) following function executes
+                 if(choice){
+                     //send details of contact to be deleted into the flask server.
+                     $.post(
+                         '/del_contact',
+                         {cName: cName, cSurname: cSurname, cEmail: cEmail, cPhone: cPhone}
+
+                     )
+                     //following code reloads the table once delete button is pressed on one of contacts.
+                    location.reload(true);
+                 }
              })
+
         })
     })
     </script>

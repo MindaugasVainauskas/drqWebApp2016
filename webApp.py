@@ -107,6 +107,7 @@ def getcontacts():
     coNames.pop("_id")
     coNames.pop("password")
     coNames.pop("salt")
+    coNames.pop("email")
     # send contacts list to the home page.
     return json.dumps(coNames)
 
