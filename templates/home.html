@@ -56,7 +56,7 @@
                  //get the user to confirm their choice to delete a contact(in case of accidental delete button click)
                  var choice = confirm("Contact "+cName+" "+cSurname +" is about to be deleted")
 
-                 //if choice comes back as tru(OK clicked) following function executes
+                 //if choice comes back as true(OK clicked) following function executes
                  if(choice){
                      //send details of contact to be deleted into the flask server.
                      $.post(
