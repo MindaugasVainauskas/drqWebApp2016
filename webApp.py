@@ -7,8 +7,10 @@ from flask_scrypt import generate_random_salt, generate_password_hash
 app = Flask(__name__)
 
 # Database name and URI for server that stores it. I am using mlab.com site to store the MongoDB that I'm using.
+
 app.config['MONGO_DBNAME'] = 'usersdb'
-app.config['MONGO_URI'] = 'mongodb://admin:admin@ds147487.mlab.com:47487/usersdb'
+app.config['MONGO_URI'] = 'mongodb://admin:admin@ds159377.mlab.com:59377/usersdb'
+
 
 app.secret_key = 'mv_secret_key'  # need to have secret key to use session
 
