@@ -1,0 +1,10 @@
+<!-- Page users see if they enter wrong details -->
+{% extends "index.html" %}
+{% block body %}
+    <h2>Oops. Seems like details you provided have not been found.</h2>
+    <div class="list-group">
+        <h4>Here are 2 options available to you.</h4>
+        	<li class="list-group-item"><a href="{{ url_for('login') }}">Enter log-in credentials again.</a></li>
+        	<li class="list-group-item"><a href="{{ url_for('signup') }}">Sign-up for a new account if this is your first time visiting.</a></li>
+        </div>
+{% endblock %}

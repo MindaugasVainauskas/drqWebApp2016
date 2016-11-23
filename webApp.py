@@ -35,8 +35,8 @@ def login():
             if generate_password_hash(request.form['inputPassword'], saltUsed) == passCheck:
                 session['currentUser'] = returning_user['username']
                 return redirect(url_for('home'))
-            return 'Wrong Password entered!!'  # if username matches but passwords doesnt this message is displayed
-        return 'Wrong Username entered'  # if usernames don't match this message is displayed
+            return render_template('WrongDetails.html')  # template with message is returned if username doesn't match
+        return render_template('WrongDetails.html') # template with message is returned if password doesn't match
 
     return render_template('login.html')
 
