@@ -5,7 +5,9 @@
 #### GMIT 2016
 
 ##Project description
-Single page Web application using Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on mlab.com cloud platform. This is a one person project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course.
+This is a Single Page Web application project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course, GMIT.
+
+**Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](mlab.com) cloud platform. Github is used to track development process of the application.
 
 ##Before Starting
 - Download and install flask microframework from [Flask Website](https://pypi.python.org/pypi/Flask/0.11)
@@ -14,10 +16,10 @@ Single page Web application using Flask microframework, Python, Bootstrap and Mo
 
 ##Running the application
 This application can be run from command line of CMDr tool for windows (Available from [cmder website](http://cmder.net/)).
-Alternatively it can be run from [Pycharm](https://www.jetbrains.com/pycharm/) Python IDE run menu.
+Alternatively it can be run from most Python IDE's run menu.
 
 ##Using the application
-  When loaded for the first time user is greeted by log-in window and needs to create a user account. This can be done by either clicking a link on top right of the window or link under log-in form. This will take them into sign-up page where users have to enter their username(must be unique!), email and password.
+  When loaded for the first time user is greeted by log-in window and needs to create a user account. This can be done by either clicking a link on top right of the window or link under log-in form. This will take them into sign-up page where users have to enter their username, email and password. Username is enforced to be unique in the system by performing checks for existing username in database. If existing username is found it returns text to user that username has been taken already.
 
   Once sign-up process is completed they are taken to the home page and can see the options on navigation bar for adding new contact into the contact list, logging out of the app, and deleting the user account if they wish so.
   
