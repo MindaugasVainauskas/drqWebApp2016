@@ -7,12 +7,13 @@
 ##Project description
 This is a Single Page Web application project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course, GMIT.
 
-**Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](mlab.com) cloud platform. Github is used to track development process of the application.
+**Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](mlab.com) cloud platform. If required local database can also be used by replacing uri for MongoDB in app.config in python file with the path to local MongoDB location on the machine. Github is used to track development process of the application.
 
 ##Before Starting
 - Download and install flask microframework from [Flask Website](https://pypi.python.org/pypi/Flask/0.11)
 - Install flask_pymongo extension to be able to use MongoDB
 - Install flask_scrypt extension for salt generation and password hashing.
+- If you decide to use local MongoDB database you can download it for your OS from [MongoDB website](https://www.mongodb.com/download-center?jmp=nav) and follow the installation guide provided there.
 
 ##Running the application
 This application can be run from command line of CMDr tool for windows (Available from [cmder website](http://cmder.net/)).
