@@ -5,19 +5,20 @@
 #### GMIT 2016
 
 ##Project description
-This is a Single Page Web application project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course, GMIT.
+This is a Single Page Web application project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course, GMIT. Idea for this project comes from my wish for web-app that would be simple and easy to use. As such, a contact list web-app was deemed a good choice. Application itself is basic, but allows for depositing of user data on database, later retrieval of it and eventually deletion from database, if the user chooses so.
 
 **Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](mlab.com) cloud platform. If required local database can also be used by replacing uri for MongoDB in app.config in python file with the path to local MongoDB location on the machine. Github is used to track development process of the application.
 
 ##Before Starting
-- Download and install flask microframework from [Flask Website](https://pypi.python.org/pypi/Flask/0.11)
-- Install flask_pymongo extension to be able to use MongoDB
+- Download flask microframework from [Flask Website](https://pypi.python.org/pypi/Flask/0.11) and follow their installation guide for your platform.
+- Install flask_pymongo extension to be able to use MongoDB.
 - Install flask_scrypt extension for salt generation and password hashing.
-- If you decide to use local MongoDB database you can download it for your OS from [MongoDB website](https://www.mongodb.com/download-center?jmp=nav) and follow the installation guide provided there.
+- If you decide to use local MongoDB database you can download it for your platform from [MongoDB website](https://www.mongodb.com/download-center?jmp=nav) and follow the appropriate installation guide provided there.
 
 ##Running the application
-This application can be run from command line of CMDr tool for windows (Available from [cmder website](http://cmder.net/)).
-Alternatively it can be run from most Python IDE's run menu.
+This application can be run from command line of CMDr tool for Windows (Available from [cmder website](http://cmder.net/)) or from Python script console on any Python IDE. Once started, it can be accessed from browser window by entering localhost url(localhost:5000).
+
+#Short User guide
 
 ##Using the application
   When loaded for the first time user is greeted by log-in window and needs to create a user account. This can be done by either clicking a link on top right of the window or link under log-in form. This will take them into sign-up page where users have to enter their username, email and password. Username is enforced to be unique in the system by performing checks for existing username in database. If existing username is found it returns text to user that username has been taken already.
