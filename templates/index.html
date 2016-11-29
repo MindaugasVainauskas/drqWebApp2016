@@ -12,15 +12,15 @@
         <!-- Navbars that users see and can use. used flask docs to find info on how to do this -->
         <!-- if user is not logged in yet they see only the following 2 links for login and signup -->
             {% if not session['currentUser'] %}
-                  <a class="text-info" href="{{ url_for('login') }}">Log in |</a>
-                  <a class="text-info" href="{{ url_for('signup') }}">Sign Up</a>
+                  <a href="{{ url_for('login') }}">Log in |</a>
+                  <a href="{{ url_for('signup') }}">Sign Up</a>
             {% endif %}
         <!-- if user is logged in then links change to following 4. -->
             {% if session['currentUser'] %}
-                <a class="text-info" href="{{ url_for('contact') }}">Add contact |</a>
-                <a class="text-info" href="{{ url_for('home') }}">Home |</a>
-                <a class="text-info" href="{{ url_for('logout') }}">Log out |</a>
-                <a class="text-info" href="{{ url_for('delete_user') }}" class="userConfirm">Delete User Account</a>
+                <a href="{{ url_for('contact') }}">Add contact |</a>
+                <a href="{{ url_for('home') }}">Home |</a>
+                <a href="{{ url_for('logout') }}">Log out |</a>
+                <a href="{{ url_for('delete_user') }}" class="userConfirm">Delete User Account</a>
             {% endif %}
         </div>
         <h3 class="text-info">The Contact List</h3>
@@ -28,8 +28,7 @@
 
     </div>
 <div class=page>
-   
-   
+
   {% block body %}{% endblock %}
 <!-- JQuery script to prompt for confirmation if user account delete button is clicked -->
     <script class="text/javascript">
