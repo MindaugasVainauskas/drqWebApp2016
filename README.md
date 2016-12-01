@@ -15,6 +15,11 @@ This is a Single Page Web application project done by me, Mindaugas Vainauskas, 
 - Install flask_scrypt extension for salt generation and password hashing.
 - If you decide to use local MongoDB database you can download it for your platform from [MongoDB website](https://www.mongodb.com/download-center?jmp=nav) and follow the appropriate installation guide provided there.
 
+##References
+- MongoDB Tutorial: https://www.tutorialspoint.com/mongodb/
+- Flask Documentation: http://flask.pocoo.org/docs/0.11/
+- Bootstrap Components guide: http://getbootstrap.com/components/ 
+
 ##Running the application
 This application can be run from command line of CMDr tool for Windows (Available from [cmder website](http://cmder.net/)) or from Python script console on any Python IDE. Once started, it can be accessed from browser window by entering localhost url(localhost:5000).
 
