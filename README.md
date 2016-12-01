@@ -19,6 +19,7 @@ This is a Single Page Web application project done by me, Mindaugas Vainauskas, 
 - MongoDB Tutorial: https://www.tutorialspoint.com/mongodb/
 - Flask Documentation: http://flask.pocoo.org/docs/0.11/
 - Bootstrap Components guide: http://getbootstrap.com/components/ 
+- Jquery documentation for events(document and mouse used in project): http://api.jquery.com/category/events/
 
 ##Running the application
 This application can be run from command line of CMDr tool for Windows (Available from [cmder website](http://cmder.net/)) or from Python script console on any Python IDE. Once started, it can be accessed from browser window by entering localhost url(localhost:5000).
