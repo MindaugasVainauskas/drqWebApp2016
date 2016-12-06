@@ -7,7 +7,7 @@
 ##Project description
 This is a Single Page Web application project done by me, Mindaugas Vainauskas, for Data representation and querrying module. 3rd year software development course, GMIT. Idea for this project comes from my wish for web-app that would be simple and easy to use. As such, a contact list web-app was deemed a good choice. Application itself is basic, but allows for depositing of user data on database, later retrieval of it and eventually deletion from database, if the user chooses so.
 
-**Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](mlab.com) cloud platform. If required local database can also be used by replacing uri for MongoDB in app.config in python file with the path to local MongoDB location on the machine. Github is used to track development process of the application.
+**Technologies used:** Flask microframework, Python, Bootstrap and MongoDB database. Database is hosted on [mlab](https://mlab.com) cloud platform. If required local database can also be used by replacing uri for MongoDB in app.config in python file with the path to local MongoDB location on the machine. Github is used to track development process of the application.
 
 ##Before Starting
 - Download flask microframework from [Flask Website](https://pypi.python.org/pypi/Flask/0.11) and follow their installation guide for your platform.
